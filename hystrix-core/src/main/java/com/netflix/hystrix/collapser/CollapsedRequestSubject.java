@@ -22,6 +22,18 @@ import rx.subjects.ReplaySubject;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
+/**
+ * CollapsedRequestSubject 是一个实现了 CollapsedRequest 接口的类，用于表示一个合并请求的可观察对象。它提供了四个方法供合并器实现使用：
+ * setResponse(T response)：返回一个单值响应，相当于 OnNext(T) 后跟 OnCompleted()。
+ * emitResponse(T response)：发出一个单值，相当于 OnNext(T)。
+ * setException(Exception e)：返回一个异常，相当于 OnError(Exception)。
+ * setComplete()：标记不再发出更多值，应与 emitResponse(T) 配合使用，相当于 OnCompleted()。
+ * CollapsedRequestSubject 维护了一个 ReplaySubject<T> 用于存储和分发值，以及一个 AtomicBoolean 用于标记值是否已设置。它还维护了一个 outstandingSubscriptions 变量，用于跟踪订阅的数量，并在订阅数为0时从包含批次中移除自身。
+ * 该类还提供了一些其他方法，如 getArgument() 用于获取请求参数，setExceptionIfResponseNotReceived(Exception e) 用于在未收到响应时设置异常，以及 isTerminated() 用于检查是否已经终止。
+ * 最后，CollapsedRequestSubject 提供了一个 toObservable() 方法，用于将自身转换为 Observable<T> 对象
+ */
+
 /**
  * The Observable that represents a collapsed request sent back to a user.  It gets used by Collapser implementations
  * when receiving a batch response and emitting values/errors to collapsers.
