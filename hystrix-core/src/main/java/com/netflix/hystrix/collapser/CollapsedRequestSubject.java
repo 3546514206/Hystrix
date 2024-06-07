@@ -33,7 +33,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 该类还提供了一些其他方法，如 getArgument() 用于获取请求参数，setExceptionIfResponseNotReceived(Exception e) 用于在未收到响应时设置异常，以及 isTerminated() 用于检查是否已经终止。
  * 最后，CollapsedRequestSubject 提供了一个 toObservable() 方法，用于将自身转换为 Observable<T> 对象
  */
-
 /**
  * The Observable that represents a collapsed request sent back to a user.  It gets used by Collapser implementations
  * when receiving a batch response and emitting values/errors to collapsers.
